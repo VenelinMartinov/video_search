@@ -1,8 +1,6 @@
 import pulumi
 import pulumi_aws as aws
 
-import gcp_infra
-
 # Get some configuration values or set default values.
 config = pulumi.Config()
 instance_type = config.get("instanceType")
@@ -26,7 +24,8 @@ ami = aws.ec2.get_ami(
 
 # User data to start a HTTP server in the EC2 instance
 user_data = """#!/bin/bash
-echo "Hello, World from Pulumi!" > index.html
+sudo yum -y install cowsay fortune
+fortune | cowsay > index.html
 nohup python -m SimpleHTTPServer 80 &
 """
 
