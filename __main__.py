@@ -20,8 +20,11 @@ ami = aws.ec2.get_ami(filters=[aws.ec2.GetAmiFilterArgs(
 
 # User data to start a HTTP server in the EC2 instance
 user_data = """#!/bin/bash
-echo "Hello, World from Pulumi!" > index.html
-nohup python -m SimpleHTTPServer 80 &
+sudo yum update -y
+sudo yum install git -y
+git clone https://github.com/VenelinMartinov/video_search.git
+cd video_search
+./run.sh
 """
 
 # Create VPC.
